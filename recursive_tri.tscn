@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://pww18f71pofb"]
+
+[ext_resource type="Script" uid="uid://cdw7f1wea8qq0" path="res://recursive_tri.gd" id="1_kcxcx"]
+
+[node name="RecursiveTri" type="Node2D"]
+script = ExtResource("1_kcxcx")

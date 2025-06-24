@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfkf0nwcsbpcb"]
+
+[ext_resource type="PackedScene" uid="uid://c8gaxlxmthti7" path="res://regular_poly.tscn" id="1_7jsh7"]
+[ext_resource type="PackedScene" uid="uid://pww18f71pofb" path="res://recursive_tri.tscn" id="2_mnuyl"]
+
+[node name="PolyCollection" type="Node2D"]
+
+[node name="RecursiveTris" parent="." instance=ExtResource("1_7jsh7")]
+position = Vector2(525, 400)
+
+[node name="RecursiveTrisDown" parent="." instance=ExtResource("1_7jsh7")]
+position = Vector2(525, 400)
+is_up_tri = false
+
+[node name="Recursive4" parent="." instance=ExtResource("1_7jsh7")]
+position = Vector2(809, 400)
+num_sides = 4
+
+[node name="Recursive4down" parent="." instance=ExtResource("1_7jsh7")]
+position = Vector2(809, 400)
+is_up_tri = false
+num_sides = 4
+
+[node name="Recursive5" parent="." instance=ExtResource("1_7jsh7")]
+position = Vector2(1159, 400)
+num_sides = 5
+
+[node name="Recursive5down" parent="." instance=ExtResource("1_7jsh7")]
+position = Vector2(1159, 400)
+is_up_tri = false
+num_sides = 5
+
+[node name="C" parent="." instance=ExtResource("2_mnuyl")]
+position = Vector2(22, 401)
+
+[node name="D" parent="." instance=ExtResource("2_mnuyl")]
+position = Vector2(22, 401)
+is_up_tri = false
+
+[node name="ROOT" parent="." instance=ExtResource("2_mnuyl")]
+position = Vector2(11, 786)
+base_length = 1024.0
