@@ -3,7 +3,6 @@ class_name RecursiveTri extends RegularPoly
 var locations : Array[Vector2]
 
 
-
 ##### FUNCTIONS
 
 func change_clickability() -> bool:
@@ -12,9 +11,6 @@ func change_clickability() -> bool:
 	return clarea.input_pickable
 
 ##### Child-Related Funcs
-func trigger_culling():
-	if name != "ROOT":
-		get_parent().cull_children()
 
 func cull_children():
 	for n in ["L","R","C","T"]:
@@ -22,19 +18,19 @@ func cull_children():
 		
 	change_clickability()
 
-func create_children():
+func create_children() -> Array[RecursiveTri] :
 	change_clickability()
 	var children : Array[RecursiveTri] = []
 	# create leftest
 	var next_name = self.name + "_L"
-	if not get_node(next_name):
+	if not get_node_or_null(next_name):
 		var leftest_child = create_child()
 		add_child(leftest_child)
 		leftest_child.name = next_name
 		children.append(leftest_child)
 	# create rightest, going right
 	next_name = self.name + "_R"
-	if not get_node(next_name):
+	if not get_node_or_null(next_name):
 		var rightest_child = create_child()
 		add_child(rightest_child)
 		rightest_child.name = next_name
@@ -45,7 +41,7 @@ func create_children():
 	var left_mid = get_midpoint(3)
 	
 	next_name = self.name + "_C"
-	if not get_node(next_name):
+	if not get_node_or_null(next_name):
 		var center_child = create_child(false)
 		add_child(center_child)
 		center_child.name = next_name
@@ -53,7 +49,7 @@ func create_children():
 		children.append(center_child)
 	
 	next_name = self.name + "_T"
-	if not get_node(next_name):
+	if not get_node_or_null(next_name):
 		var top_child = create_child()
 		add_child(top_child)
 		top_child.name = next_name
@@ -69,15 +65,30 @@ func create_child(is_same_orientation : bool = true) -> RecursiveTri:
 	child.base_length = self.base_length / 2
 	return child
 
-func increase_resolution(levels:int=1):
+func increase_resolution(levels:int=2):
 	s_log("info: increasing resolution")
-	var cs = create_children()
-	s_log("Created %d Children" % len(cs))
+	var current_children = create_children()
+	var headcount = len(current_children)
+	while levels > 1:
+		var next_children = []
+		for c in current_children:
+			next_children.append_array(c.create_children())
+		current_children = next_children
+		headcount += len(current_children)
+		levels-=1
+	s_log("Created %d Children" % headcount)
 	pass
 	
-func decrease_resolution(levels:int=1):
+func decrease_resolution(levels:int=3):
 	s_log("info: decreasing resolution")
-	trigger_culling()
+	
+	var parent = get_parent()
+	while levels > 1:
+		var gramps = parent.get_parent()
+		if gramps is RecursiveTri:
+			parent = gramps
+		levels -= 1
+	parent.cull_children()
 	pass
 
 ##### INPUTS

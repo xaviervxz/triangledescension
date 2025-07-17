@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="TriangleDescension"
-run/main_scene="uid://dfkf0nwcsbpcb"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="res://poly_collection.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]

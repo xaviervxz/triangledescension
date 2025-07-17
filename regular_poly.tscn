@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c8gaxlxmthti7"]
 
-[ext_resource type="Script" uid="uid://biat7bg56us6k" path="res://regular_poly.gd" id="1_5p46y"]
+[ext_resource type="Script" path="res://regular_poly.gd" id="1_5p46y"]
 
 [node name="RegularPoly" type="Node2D"]
 script = ExtResource("1_5p46y")
